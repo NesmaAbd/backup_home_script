@@ -6,7 +6,7 @@ Questo progetto contiene uno script bash per eseguire backup giornalieri della c
 
 ## Come funziona
 
-- Lo script crea un archivio compresso `.tar.gz` della cartella home (`/home/nesma`).
+- Lo script crea un archivio compresso `.tar.gz` della cartella home (`/home`).
 - Il backup viene salvato nella cartella `/opt/backup/` con un nome che cambia in base al giorno della settimana (es. backup-Monday.tar.gz).
 - Si mantiene una rotazione settimanale con massimo 7 file (uno per ogni giorno).
 
@@ -15,9 +15,9 @@ Questo progetto contiene uno script bash per eseguire backup giornalieri della c
 ## Comandi principali usati
 
 - `day=$(date +%A)` : ottiene il nome del giorno della settimana.
-- `tar -czf backup-file.tar.gz /home/nesma` : crea un archivio compresso della cartella home.
+- `tar -czf backup-file.tar.gz /home` : crea un archivio compresso della cartella home.
 - `sudo mkdir -p /opt/backup` : crea la cartella di destinazione se non esiste.
-- `sudo chown nesma:nesma` e `chmod 644` : assicurano i permessi corretti al file di backup.
+- `sudo chown root:root` e `chmod 644` : assicurano i permessi corretti al file di backup.
 
 ---
 
@@ -28,7 +28,7 @@ Questo progetto contiene uno script bash per eseguire backup giornalieri della c
 #!/bin/bash
 
 # Cartella Home
-SOURCE_DIR="/home/nesma"
+SOURCE_DIR="/home"
 
 # Cartella dove salvare i backup
 DEST_DIR="/opt/backup"
@@ -62,7 +62,7 @@ sudo tar -czf "$BACKUP_FILE" "$SOURCE_DIR"
 
    ```bash
    sudo mkdir -p /opt/backup
-   sudo chown nesma:nesma /opt/backup
+   sudo chown root:root /opt/backup
    ```
 
 4. Eseguire manualmente lo script per testarlo:
@@ -79,7 +79,7 @@ sudo tar -czf "$BACKUP_FILE" "$SOURCE_DIR"
 
    una volta aperto l'editor aggiungere la seguente riga:
    ```
-   0 3 * * * /home/nesma/scripts/backup_home.sh >> /home/nesma/scripts/backup.log 2>&1
+   0 3 * * * il-tuo-percorso/backup_home.sh
    ```
 
 ---
